@@ -10,38 +10,42 @@ const App = {
         {
           title: 'Основы',
           text: 'В блоке вы познакомитесь со всеми основами Vue.js на практике. На протяжении блока мы напишем реактивное приложение, в процессе разработки которого разберем вся базу фреймворка.',
-          isCompleted: false
+          // isCompleted: false
         },
         {
           title: 'Компоненты',
           text: 'Один из самых важных блоков в курсе, где вы узнаете все о компонентах. В блоке мы напишем 2 разных приложения и создадим более 5 различных UI компонентов как в реальной разработке. Блок расскажет про абсолютно все составляющие, которые есть в компонентах: взаимодействие, slots, асинхронные и динамические компоненты и тонна примеров.',
-          isCompleted: false
+          // isCompleted: false
         },
         {
           title: 'Роутер',
           text: 'В данном блоке вы узнаете все о том, как работает мультиязычность во Vue. Мы создадим миниклон Gmail в данном блоке, где вы на практике увидите как работать с динамическим роутером.',
-          isCompleted: false
+          // isCompleted: false
         },
         {
           title: 'Vuex',
           text: 'В блоке вы узнаете абсолютно все про Vuex. Вы узнаете как работать с данными, какие есть лучшие практики по их программированию и структурированию. Все на практике.',
-          isCompleted: false
+          // isCompleted: false
         },
         {
           title: 'Composition',
           text: 'Одним из наиболее важных обновлений в Vue 3 является появление альтернативного синтаксиса Composition API. В этом блоке вы узнаете все, чтобы полностью пользоваться данными синтаксисом на практических примерах. Помимо этого вы узнаете как работать совместно с Vue Router и Vuex.',
-          isCompleted: false
+          // isCompleted: false
         },
       ],
       content: '',
       isFinished: false,
-      buttonText: 'Вперед'
+      // buttonText: 'Вперед',
+      appTitle: 'План по изучению Vue.js'
     }
   },
   methods: {
     prev() {
       // когда нажимаем кнопку назад
-      this.activeIndex--
+      if (this.activeIndex > 0)
+      {
+        this.activeIndex--
+      }
       this.setActive(this.activeIndex)
       // this.content = this.steps[this.activeIndex].text
     },
@@ -67,11 +71,6 @@ const App = {
       {
         this.activeIndex = idx
         this.content = this.steps[idx].text
-        this.steps.map((item, idx) => {
-          item.isCompleted = idx < this.activeIndex
-        })
-
-        this.buttonText = idx === this.steps.length - 1 ? 'Закончить' : 'Вперед';
       }
     }
   },
@@ -86,6 +85,12 @@ const App = {
     isCanBack () { return this.activeIndex > 0 } ,
     // 3. находимся ли мы на последнем шаге
     isLastStep: (idx) => idx > (this.steps.length - 1),
+
+    buttonText () {
+      return this.activeIndex < this.steps.length - 1
+        ? 'Вперед'
+        : 'Закончить'
+    }
   }
 }
 
